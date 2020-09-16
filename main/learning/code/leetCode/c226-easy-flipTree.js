@@ -39,7 +39,7 @@ function TreeNode(val) {
  * @return {TreeNode}
  */
 var invertTree = function (root) {
-    if(!root) return root;
+    if (!root) return root;
     var newTree = new TreeNode(root.val);
     dfs(root, newTree)
     return newTree;
@@ -58,3 +58,15 @@ var dfs = function (root, cur) {
         dfs(root.right, cur.left);
     }
 }
+
+// 参考题解：https://leetcode-cn.com/problems/invert-binary-tree/solution/dong-hua-yan-shi-liang-chong-shi-xian-226-fan-zhua/
+
+var invertTree = function (root) {
+    if (!root) return root;
+    var temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    invertTree(root.left);
+    invertTree(root.right);
+    return root;
+};
