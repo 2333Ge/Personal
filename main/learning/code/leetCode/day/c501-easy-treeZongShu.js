@@ -49,17 +49,16 @@ var findMode = function (root) {
     const value = {};
     dfs(root, value);
     let result = [];
-    let max;
+    let max = null;
     for (let key in value) {
-        if (!max || value[key] > max) {
-            max = value[key];
-            result = [];
-            result.push(key)
-            max = value[key]
-        }
         if (max === value[key]) {
             result.push(key)
         }
+        if ( max=== null || value[key] > max) {
+            result = [key];
+            max = value[key]
+        }
+        
     }
     return result;
 };
