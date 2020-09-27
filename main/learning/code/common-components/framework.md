@@ -1,6 +1,6 @@
 ## 通用前端
 ## 架构分析图
-[架构分析图](../../../chart/common.drawio)
+![../../../chart/common.drawio](../../../image/通用前端架构图.png)
 ## 逻辑实现
 - 定义主题key-value键值对
 - React Context 提供全局传值能力
