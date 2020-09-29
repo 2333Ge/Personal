@@ -1,5 +1,5 @@
 echo "\n"
-echo "== auto push start "
+echo "== push start "
 echo "\n"
 git add .
 git status
@@ -10,5 +10,5 @@ fi
 git commit -m commitMsg
 git push
 echo "\n"
-echo "<=====  auto push end  "
+echo "<===== push end  "
 echo "\n"
