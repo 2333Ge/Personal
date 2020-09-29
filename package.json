@@ -1,3 +1,8 @@
 {
-    "name": "Personal"
+    "scripts": {
+        "push": "./bin/push.sh"
+    },
+    "name": "Personal",
+    "files": ["/main"],
+    "main": "./main"
 }
