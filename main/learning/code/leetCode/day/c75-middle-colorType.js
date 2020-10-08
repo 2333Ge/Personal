@@ -20,10 +20,54 @@
 链接：https://leetcode-cn.com/problems/sort-colors
  */
 
- /**
- * @param {number[]} nums
- * @return {void} Do not return anything, modify nums in-place instead.
- */
-  
-sortColors([2,0,2,1,1,0]);
+
+const swap = (nums, cur, to) => {
+    const temp = nums[cur];
+    nums[cur] = nums[to];
+    nums[to] = temp;
+}
+/**
+* @param {number[]} nums
+* @return {void} Do not return anything, modify nums in-place instead.
+*/
+var sortColors = function (nums) {
+    if (!nums || nums.length < 2) return nums;
+    let start = 0;
+    let end = nums.length - 1;
+    for (let i in nums) {
+        if (nums[i] === 0) {
+            swap(nums, i, start);
+            start++;
+        }
+
+    }
+    for (let i = nums.length - 1; i >= 0; i--) {
+        if (nums[i] === 2) {
+            swap(nums, i, end);
+            end--;
+        }
+    }
+};
+
+/**循环不变量 */
+var sortColors2 = function (nums) {
+    if (!nums || nums.length < 2) return;
+    let start = 0;
+    let end = nums.length - 1;
+    let i = 0;
+    while (i <= end) {
+        if (nums[i] === 0) {
+            swap(nums, i, start);
+            start++;
+            i++;
+        } else if (nums[i] === 1) {
+            i++;
+        } else { // 注意此时换过来的还要判断
+            swap(nums, i, end);
+            end--;
+        }
+    }
+};
+
+sortColors([2, 0, 2, 1, 1, 0]);
 

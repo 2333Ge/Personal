@@ -13,10 +13,10 @@ Shell 脚本（shell script），是一种为 shell 编写的脚本程序。
 
 ## demo 1
 
-```    
+```
 #!/bin/bash
 echo "Hello World !"
-```      
+```
 
 #! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。
 
@@ -26,19 +26,19 @@ echo 命令用于向窗口输出文本。
 
 #### （1）作为可执行程序
 
-```    
+```
 chmod +x ./test.sh  #使脚本具有执行权限
 ./test.sh  #执行脚本
-```    
+```
 
 直接写 test.sh，linux 系统会去 PATH 里寻找有没有叫 test.sh 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 test.sh 是会找不到命令的，要用 ./test.sh 告诉系统说，就在当前目录找。
 
 #### (2) 作为解释器参数
 
-```    
+```
 /bin/sh test.sh
 /bin/php test.php
-```    
+```
 
 ，直接运行解释器,这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。
 
@@ -53,19 +53,19 @@ chmod +x ./test.sh  #使脚本具有执行权限
 
 使用一个定义过的变量，只要在变量名前面加美元符号即可
 
-```    
+```
 your_name="qinjx"
 echo $your_name
 echo ${your_name}
-```    
+```
 
 变量名外面的花括号是可选的，加不加都行，**加花括号是为了帮助解释器识别变量的边界**，比如下面这种情况：
 
-```    
+```
 for skill in Ada Coffe Action Java; do
     echo "I am good at ${skill}Script"
 done
-```    
+```
 
 如果不给 skill 变量加花括号，写成 echo "I am good at $skillScript"，解释器就会把$skillScript 当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
 
@@ -74,7 +74,7 @@ done
 使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。  
 下面的例子尝试更改只读变量，结果报错：
 
-```    
+```
 #!/bin/bash
 myUrl="http://www.google.com"
 readonly myUrl
@@ -83,21 +83,21 @@ myUrl="http://www.runoob.com"
 // 运行脚本，结果如下：
 
 /bin/sh: NAME: This variable is read only.
-```    
+```
 
 ## （4）删除变量
 
 使用 unset 命令可以删除变量。  
 变量被删除后不能再次使用。unset 命令不能删除只读变量。
 
-```    
+```
 #!/bin/sh
 myUrl="http://www.runoob.com"
 unset myUrl
 echo $myUrl
 
 // 以上实例执行将没有任何输出。
-```    
+```
 
 ## （5）变量类型
 
@@ -120,22 +120,22 @@ echo $myUrl
 
 ### B 双引号
 
-```    
+```
 your_name='runoob'
 str="Hello, I know you are \"$your_name\"! \n"
 echo -e $str
-```    
+```
 
-```    
+```
 Hello, I know you are "runoob"!
-```    
+```
 
 - 双引号里可以有变量
 - 双引号里可以出现转义字符
 
 ### C 拼接字符串
 
-```    
+```
 your_name="runoob"
 # 使用双引号拼接
 greeting="hello, "$your_name" !"
@@ -145,36 +145,36 @@ echo $greeting  $greeting_1
 greeting_2='hello, '$your_name' !'
 greeting_3='hello, ${your_name} !'
 echo $greeting_2  $greeting_3
-```    
+```
 
-```    
+```
 // 输出结果
 hello, runoob ! hello, runoob !
 hello, runoob ! hello, ${your_name} !
-```    
+```
 
 ### D 获取字符串长度
 
-```    
+```
 string="abcd"
 echo ${#string} #输出 4
-```    
+```
 
 ### E 提取字符串
 
-```    
+```
 string="runoob is a great site"
 echo ${string:1:4} # 输出 unoo
-```    
+```
 
 ### F 查找字符串
 
 查找字符 i 或 o 的位置(哪个字母先出现就计算哪个)：
 
-```    
+```
 string="runoob is a great site"
 echo `expr index "$string" io`  # 输出 4
-```    
+```
 
 以上脚本中 ` 是反引号，而不是单引号 '，不要看错了哦。
 
@@ -184,7 +184,7 @@ bash 支持一维数组（不支持多维数组），并且没有限定数组的
 
 ### A 定义
 
-```    
+```
 数组名=(值1 值2 ... 值n)
 
 // 如
@@ -202,40 +202,40 @@ value3
 array_name[0]=value0
 array_name[1]=value1
 array_name[n]=valuen
-```    
+```
 
 **可以不使用连续的下标，而且下标的范围没有限制。**
 
 ### B 读取数组
 
-```    
+```
 ${数组名[下标]}
 
 // 使用 @ 符号可以获取数组中的所有元素，例如：
 echo ${array_name[@]}
-```    
+```
 
 ### C 获取数组的长度
 
 // 获取数组长度的方法与获取字符串长度的方法相同，例如：
 
-```    
+```
 # 取得数组元素的个数
 length=${#array_name[@]}
 # 或者
 length=${#array_name[*]}
 # 取得数组单个元素的长度
 lengthn=${#array_name[n]}
-```    
+```
 
 ## (8) Shell 注释
 
 以 # 开头的行就是注释，会被解释器忽略。
 
-```    
+```
 # 这是一个注释
 
-```    
+```
 
 如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？
 
@@ -243,7 +243,7 @@ lengthn=${#array_name[n]}
 
 ## （9）多行注释
 
-```    
+```
 :<<EOF
 注释内容...
 注释内容...
@@ -263,13 +263,13 @@ EOF
 注释内容...
 注释内容...
 !
-```    
+```
 
 # 3 Shell 传递参数
 
 向脚本传递参数，脚本内获取参数的格式为：\$n。n 代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推……
 
-```    
+```
 // $0 为执行的文件名
 
 echo "Shell 传递参数实例！";
@@ -277,9 +277,9 @@ echo "执行的文件名：$0";
 echo "第一个参数为：$1";
 echo "第二个参数为：$2";
 echo "第三个参数为：$3";
-```    
+```
 
-```    
+```
 $ chmod +x test.sh
 $ ./test.sh 1 2 3
 Shell 传递参数实例！
@@ -287,7 +287,7 @@ Shell 传递参数实例！
 第一个参数为：1
 第二个参数为：2
 第三个参数为：3
-```    
+```
 
 ## 参数处理
 
@@ -307,7 +307,7 @@ Shell 传递参数实例！
 
 使用@ 或 \* 可以获取数组中的所有元素
 
-```    
+```
 #!/bin/bash
 # author:菜鸟教程
 # url:www.runoob.com
@@ -319,14 +319,14 @@ my_array[3]=D
 
 echo "数组的元素为: ${my_array[*]}"
 echo "数组的元素为: ${my_array[@]}"
-```    
+```
 
 ## 2 获取数组长度
 
-```    
+```
  ${#my_array[*]
  ${#my_array[@]}
-```    
+```
 
 # [5 Shell 基本运算符](https://www.runoob.com/linux/linux-shell-basic-operators.html)
 
@@ -342,14 +342,14 @@ echo "数组的元素为: ${my_array[@]}"
 
 expr 是一款表达式计算工具，使用它能完成表达式的求值操作。
 
-```    
+```
 // 两个数相加(注意使用的是反引号 ` 而不是单引号 ')：
 
 #!/bin/bash
 
 val=`expr 2 + 2`
 echo "两数之和为 : $val"
-```    
+```
 
 字符和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。
 完整的表达式要被 ` ` 包含
@@ -369,7 +369,7 @@ echo "两数之和为 : $val"
 
 条件表达式要放在方括号之间，并且要有空格，例如: [$a==$b] 是错误的，必须写成 [ $a == $b ]
 
-```    
+```
 a=10
 b=20
 
@@ -396,7 +396,7 @@ if [ $a != $b ]
 then
    echo "a 不等于 b"
 fi
-```    
+```
 
 - 乘号(\*)前边必须加反斜杠(\)才能实现乘法运算；
 - if...then...fi 是条件语句，后续将会讲解。
@@ -452,46 +452,46 @@ $	检测字符串是否为空，不为空返回 true。	[ $a ] 返回 true。
 
 ## 1. 显示普通字符串
 
-```    
+```
 echo "It is a test"
-```    
+```
 
 这里的双引号完全可以省略，以下命令与上面实例效果一致：
 
-```    
+```
 echo It is a test
-```    
+```
 
 ## 2. 显示转义字符
 
-```    
+```
 echo "\"It is a test\""
 
 // 结果
 "It is a test"
-```    
+```
 
 ## 3. 显示变量
 
 read 命令从标准输入中读取一行,并把输入行的每个字段的值指定给 shell 变量
 
-```    
+```
 #!/bin/sh
 read name
 echo "$name It is a test"
-```    
+```
 
 以上代码保存为 test.sh，name 接收标准输入的变量，结果将是:
 
-```    
+```
 [root@www ~]# sh test.sh
 OK                     #标准输入
 OK It is a test        #输出
-```    
+```
 
 ## 4. 显示换行
 
-```    
+```
 echo -e "OK! \n" # -e 开启转义
 echo "It is a test"
 
@@ -500,11 +500,11 @@ echo "It is a test"
 OK!
 
 It is a test
-```    
+```
 
 ## 5.显示不换行
 
-```    
+```
 #!/bin/sh
 echo -e "OK! \c" # -e 开启转义 \c 不换行
 echo "It is a test"
@@ -512,23 +512,23 @@ echo "It is a test"
 // 输出结果：
 
 OK! It is a test
-```    
+```
 
 ## 6. 显示结果定向至文件
 
-```    
+```
 echo "It is a test" > myfile
-```    
+```
 
 ## 7. 原样输出字符串，不进行转义或取变量(用单引号)
 
-```    
+```
 echo '$name\"'
-```    
+```
 
 ## 8. 显示命令执行结果
 
-```    
+```
 echo `date`
 
 // 这里使用的是反引号 `, 而不是单引号 '。
@@ -536,7 +536,7 @@ echo `date`
 // 结果将显示当前日期
 
 Thu Jul 24 10:08:46 CST 2014
-```    
+```
 
 # [7 Shell printf 命令](https://www.runoob.com/linux/linux-shell-printf.html)
 
@@ -544,16 +544,16 @@ Thu Jul 24 10:08:46 CST 2014
 
 printf 使用引用文本或空格分隔的参数，外面可以在 printf 中使用格式化字符串，还可以制定字符串的宽度、左右对齐方式等。默认 printf 不会像 echo 自动添加换行符，我们可以手动添加 \n。
 
-```    
+```
 printf  format-string  [arguments...]
-```    
+```
 
 - format-string: 为格式控制字符串
   arguments: 为参数列表。
 - format-string: 为格式控制字符串
   arguments: 为参数列表。
 
-```    
+```
 // echo命令默认换行
 $ echo -e "Hello, Shell\n"
 Hello, Shell
@@ -562,22 +562,22 @@ $
 $ printf "Hello, Shell\n\n"
 Hello, Shell
 $
-```    
+```
 
-```    
+```
 printf "%-10s %-8s %-4s\n" 姓名 性别 体重kg
 printf "%-10s %-8s %-4.2f\n" 郭靖 男 66.1234
 printf "%-10s %-8s %-4.2f\n" 杨过 男 48.6543
 printf "%-10s %-8s %-4.2f\n" 郭芙 女 47.9876
 执行脚本，输出结果如下所示：
-```    
+```
 
-```    
+```
 姓名     性别   体重kg
 郭靖     男      66.12
 杨过     男      48.65
 郭芙     女      47.99
-```    
+```
 
 %-10s 指一个宽度为 10 个字符（-表示左对齐，没有则表示右对齐），任何字符都会被显示在 10 个字符宽的字符内，如果不足则自动以空格填充，超过也会将内容全部显示出来。
 
@@ -597,7 +597,7 @@ printf "%-10s %-8s %-4.2f\n" 郭芙 女 47.9876
 -lt |小于则为真
 -le |小于等于则为真
 
-```    
+```
 num1=100
 num2=100
 if test $[num1] -eq $[num2]
@@ -610,7 +610,7 @@ fi
 // 输出结果：
 
 两个数相等！
-```    
+```
 
 ## 2 文件测试
 
@@ -620,7 +620,7 @@ fi
 
 sh 的流程控制不可为空
 
-```    
+```
 <?php
 if (isset($_GET["q"])) {
     search(q);
@@ -628,13 +628,13 @@ if (isset($_GET["q"])) {
 else {
     // 不做任何事情
 }
-```    
+```
 
 如果 else 分支没有语句执行，就不要写这个 else
 
 ## 1 if else
 
-```    
+```
 if...
 then...
 elif...
@@ -642,11 +642,11 @@ then...
 else...
 then...
 fi
-```    
+```
 
 ## 2 for 循环
 
-```    
+```
 for var in item1 item2 ... itemN
 do
     command1
@@ -654,6 +654,6 @@ do
     ...
     commandN
 done
-```    
+```
 
 ==cur==
