@@ -22,7 +22,7 @@
 ```
 $ npm install gitbook-cli -g
 ```
-1
+
 ## 使用
 
 1. 上传  
