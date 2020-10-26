@@ -50,20 +50,26 @@ var longestMountain = function (A) {
             } else {
                 findBigger = tempMax > 1 ? false : true;
             }
-        }else{
+        }
+        if(!findBigger){
             if (A[i] < A[i - 1]) {
                 tempMax++;
             } else if (A[i] >= A[i - 1]) {
+                findBigger = true;
                 if(tempMax > max && tempMax > 2){
                     max = tempMax
                 }
-                findBigger = true;
                 tempMax = 1;
             } 
         }
+        console.log(A[i], i, tempMax);
+        
+    }
+    if(tempMax > max && tempMax > 2 && !findBigger){
+        return tempMax
     }
     return max;
 };
 
-console.log(longestMountain([2,1,4,7,3,2,5]));
+console.log(longestMountain([875,884,239,731,723,685]));
 
