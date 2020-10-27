@@ -32,7 +32,7 @@ B.length >= 3
 
 链接：https://leetcode-cn.com/problems/longest-mountain-in-array
  */
-/**
+/** ×
  * @param {number[]} A
  * @return {number}
  */
@@ -51,25 +51,50 @@ var longestMountain = function (A) {
                 findBigger = tempMax > 1 ? false : true;
             }
         }
-        if(!findBigger){
+        if (!findBigger) {
             if (A[i] < A[i - 1]) {
                 tempMax++;
             } else if (A[i] >= A[i - 1]) {
                 findBigger = true;
-                if(tempMax > max && tempMax > 2){
+                if (tempMax > max && tempMax > 2) {
                     max = tempMax
                 }
                 tempMax = 1;
-            } 
+            }
         }
         console.log(A[i], i, tempMax);
-        
+
     }
-    if(tempMax > max && tempMax > 2 && !findBigger){
+    if (tempMax > max && tempMax > 2 && !findBigger) {
         return tempMax
     }
     return max;
 };
 
-console.log(longestMountain([875,884,239,731,723,685]));
+// 题解1
+var longestMountain1 = function (A) {
+    if (!A || A.length < 3) return 0;
+    const left = new Array(A.length).fill(0);
+    const right = new Array(A.length).fill(0);
+    for (let i = 1; i < A.length - 1; i++) {
+        if (A[i] > A[i - 1]) left[i] = left[i - 1] + 1;
+    }
+    for (let i = A.length - 2; i > 0; i--) {
+        if (A[i] > A[i + 1]) right[i] = right[i + 1] + 1;
+    }
+    let max = 0;
+    for (i = 1; i < A.length - 1; i++) {
+        if (left[i] > 0 && right[i] > 0) {
+            max = Math.max(max, left[i] + right[i] + 1)
+        }
+    }
+    // console.log(left);
+    // console.log(right);
+    return max;
+};
+
+// console.log(longestMountain([875, 884, 239, 731, 723, 685]));
+
+console.log(longestMountain1([2,2,2,2]));
+
 
