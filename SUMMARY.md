@@ -8,5 +8,6 @@
 * [每日计划](./main/journal/everyDay.md)
 * [随记](./main/journal/idea.md)
 * [周报](./main/journal/week/index.md)
+* [Don't Stop Thinking](.、main/journal/coolBoy.md)
 
 
