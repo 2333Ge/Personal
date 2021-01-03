@@ -33,25 +33,24 @@ function ListNode(val) {
  * @param {number} x
  * @return {ListNode}
  */
-// head 是分割点的时候？？
+// head 是分割点的时候？？ ×
 var c = function (head, x) {
   let curNode = head;
   while (curNode.next && curNode.next.val < x) {
     curNode = curNode.next;
   }
   const spNode = curNode;
-  if(!curNode)return head;
+  if (!curNode) return head;
   while (curNode.next) {
     // console.log(curNode.next.val + 'x:' + x);
     if (curNode.next.val < x) {
-    let nextNode = curNode.next;
+      let nextNode = curNode.next;
       curNode.next = curNode.next.next;
       nextNode.next = spNode.next.next;
       spNode.next = nextNode;
       // console.log(nodeToString(head))
     }
     curNode = curNode.next;
-
   }
   return head;
 };
@@ -76,5 +75,30 @@ function nodeToString(node) {
   }
 }
 
-console.log(nodeToString(c(makeNode([1, 4, 3, 2, 5, 2]), 3)));
+// console.log(nodeToString(c(makeNode([1, 4, 3, 2, 5, 2]), 3)));
 // console.log(nodeToString(makeNode([1, 4, 3, 2, 5, 2])));
+
+// 官方题解后
+
+var partition = function (head, x) {
+  let smallList = new ListNode(-1);
+  let largeList = new ListNode(-1);
+  let smallStart = smallList;
+  let largeStart = largeList;
+  while (head) {
+    if (head.val < x) {
+      smallList.next = head;
+      smallList = smallList.next;
+    } else {
+      largeList.next = head;
+      largeList = largeList.next;
+    }
+    head = head.next;
+  }
+  largeList.next = null;
+  smallList.next = largeStart.next;
+  return smallStart.next;
+};
+
+
+console.log(nodeToString(partition(makeNode([1, 4, 3, 2, 5, 2]), 3)));
